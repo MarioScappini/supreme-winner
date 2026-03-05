@@ -31,13 +31,7 @@ functions:
             AIRFLOW__DAG_PROCESSOR__MAX_DAG_PARSING_PROCESSES: "2"
             AIRFLOW__DAG_PROCESSOR__DAG_DIR_LIST_INTERVAL: "300"
             
-        expose:
-          min_scale: 1
-          max_scale: 1
-          api_port: 8877
-          cpu_threshold: 90
-          rewrite_target: true
-          health_path: "/health"
+        
         mount:
           storage_provider: minio
           path: airflow
