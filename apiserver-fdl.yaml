@@ -1,0 +1,29 @@
+functions:
+  oscar:
+    - oscar-cluster:
+        name: airflow-webserver
+        memory: 500Mi
+        cpu: '0.5'
+        image: localhost:5001/airflow-kube:latest
+        script: entrypoint.sh
+        environment:
+          Variables:
+            AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@airflow-postgres66-db:5432/airflow"
+            _AIRFLOW_WWW_USER_CREATE: "true"
+            _AIRFLOW_WWW_USER_USERNAME: "airflow"
+            _AIRFLOW_WWW_USER_PASSWORD: "airflow"
+            _AIRFLOW_WWW_USER_FIRSTNAME: "Admin"
+            _AIRFLOW_WWW_USER_LASTNAME: "User"
+            _AIRFLOW_WWW_USER_EMAIL: "admin@example.com"
+        expose:
+          min_scale: 1
+          max_scale: 1
+          api_port: 8080
+          cpu_threshold: 90
+          rewrite_target: true
+          health_path: "/api/v2/monitor/health"
+        mount:
+          storage_provider: minio
+          path: airflow
+
+        
