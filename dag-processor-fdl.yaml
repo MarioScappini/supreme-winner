@@ -15,6 +15,22 @@ functions:
             _AIRFLOW_WWW_USER_FIRSTNAME: "Admin"
             _AIRFLOW_WWW_USER_LASTNAME: "User"
             _AIRFLOW_WWW_USER_EMAIL: "admin@example.com"
+            AIRFLOW__CORE__EXECUTOR: "KubernetesExecutor"
+            AIRFLOW__KUBERNETES_EXECUTOR__NAMESPACE: "oscar-svc"
+            AIRFLOW__KUBERNETES_EXECUTOR__POD_TEMPLATE_FILE: "/opt/airflow/pod_template.yaml"
+            AIRFLOW__KUBERNETES_EXECUTOR__IN_CLUSTER: "True"
+            AIRFLOW__KUBERNETES_EXECUTOR__WORKER_CONTAINER_REPOSITORY: "localhost:5001/airflow-kube"
+            AIRFLOW__KUBERNETES_EXECUTOR__WORKER_CONTAINER_TAG: "latest"
+            AIRFLOW__KUBERNETES_EXECUTOR__DELETE_WORKER_PODS: "False"
+            AIRFLOW__KUBERNETES_EXECUTOR__DELETE_WORKER_PODS_ON_FAILURE: "False"
+            AIRFLOW__CORE__DAGS_FOLDER: "/mnt/airflow/dags"
+            AIRFLOW__CORE__FERNET_KEY: "oJ7Fz4Yk5pH3Yb6nP2Y9vKXQm3R8tU5wZc1dEfGhIjk="
+            AIRFLOW__LOGGING__BASE_LOG_FOLDER: "/mnt/airflow/logs"
+            AIRFLOW__API_AUTH__JWT_SECRET: "your-long-random-string-here2"
+            AIRFLOW__API__SECRET_KEY: "your-long-random-string-here2"
+            AIRFLOW__DAG_PROCESSOR__MAX_DAG_PARSING_PROCESSES: "2"
+            AIRFLOW__DAG_PROCESSOR__DAG_DIR_LIST_INTERVAL: "300"
+            
         expose:
           min_scale: 1
           max_scale: 1
@@ -24,4 +40,4 @@ functions:
           health_path: "/health"
         mount:
           storage_provider: minio
-          path: airflow
+          path: api-server
