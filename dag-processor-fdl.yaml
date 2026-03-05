@@ -40,4 +40,4 @@ functions:
           health_path: "/health"
         mount:
           storage_provider: minio
-          path: api-server
+          path: airflow
